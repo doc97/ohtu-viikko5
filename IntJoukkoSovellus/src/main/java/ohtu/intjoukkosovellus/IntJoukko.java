@@ -61,23 +61,14 @@ public class IntJoukko {
     }
 
     private void kasvata() {
-        int[] taulukkoOld = ljono;
-        kopioiTaulukko(ljono, taulukkoOld);
-        ljono = new int[alkioidenLkm + kasvatuskoko];
-        kopioiTaulukko(taulukkoOld, ljono);
-    }
-
-    private void kopioiTaulukko(int[] vanha, int[] uusi) {
-        for (int i = 0; i < vanha.length; i++) {
-            uusi[i] = vanha[i];
-        }
-
+        int[] uusi = new int[alkioidenLkm + kasvatuskoko];
+        System.arraycopy(ljono, 0, uusi, 0, alkioidenLkm);
+        ljono = uusi;
     }
 
     public int mahtavuus() {
         return alkioidenLkm;
     }
-
 
     @Override
     public String toString() {
