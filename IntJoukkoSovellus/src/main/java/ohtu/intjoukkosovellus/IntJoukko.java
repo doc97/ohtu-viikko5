@@ -39,35 +39,25 @@ public class IntJoukko {
     }
 
     public boolean kuuluu(int luku) {
-        for (int i = 0; i < alkioidenLkm; i++) {
-            if (luku == ljono[i])
-                return true;
+        return indeksi(luku) >= 0;
+    }
+
+    public boolean poista(int luku) {
+        int kohta = indeksi(luku);
+        if (kohta != -1) {
+            alkioidenLkm--;
+            System.arraycopy(ljono, kohta + 1, ljono, kohta, alkioidenLkm - kohta);
+            return true;
         }
         return false;
     }
 
-    public boolean poista(int luku) {
-        int kohta = -1;
-        int apu;
+    private int indeksi(int luku) {
         for (int i = 0; i < alkioidenLkm; i++) {
-            if (luku == ljono[i]) {
-                kohta = i; //siis luku löytyy tuosta kohdasta :D
-                ljono[kohta] = 0;
-                break;
-            }
+            if (luku == ljono[i])
+                return i;
         }
-        if (kohta != -1) {
-            for (int j = kohta; j < alkioidenLkm - 1; j++) {
-                apu = ljono[j];
-                ljono[j] = ljono[j + 1];
-                ljono[j + 1] = apu;
-            }
-            alkioidenLkm--;
-            return true;
-        }
-
-
-        return false;
+        return -1;
     }
 
     private void kasvata() {
