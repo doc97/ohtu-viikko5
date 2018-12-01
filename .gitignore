@@ -1,0 +1,11 @@
+# Java
+*.class
+bin/
+build/
+
+# Gradle
+.gradle/
+
+# IntelliJ IDEA
+.idea/
+*.iml
