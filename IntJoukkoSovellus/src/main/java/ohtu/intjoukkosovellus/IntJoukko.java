@@ -29,26 +29,13 @@ public class IntJoukko {
     }
 
     public boolean lisaa(int luku) {
-        int eiOle = 0;
-        if (alkioidenLkm == 0) {
-            ljono[0] = luku;
-            alkioidenLkm++;
-            return true;
-        } else {
-        }
-        if (!kuuluu(luku)) {
-            ljono[alkioidenLkm] = luku;
-            alkioidenLkm++;
-            if (alkioidenLkm % ljono.length == 0) {
-                int[] taulukkoOld = new int[ljono.length];
-                taulukkoOld = ljono;
-                kopioiTaulukko(ljono, taulukkoOld);
-                ljono = new int[alkioidenLkm + kasvatuskoko];
-                kopioiTaulukko(taulukkoOld, ljono);
-            }
-            return true;
-        }
-        return false;
+        if (kuuluu(luku))
+            return false;
+
+        ljono[alkioidenLkm++] = luku;
+        if (alkioidenLkm % ljono.length == 0)
+            kasvata();
+        return true;
     }
 
     public boolean kuuluu(int luku) {
@@ -87,6 +74,13 @@ public class IntJoukko {
 
 
         return false;
+    }
+
+    private void kasvata() {
+        int[] taulukkoOld = ljono;
+        kopioiTaulukko(ljono, taulukkoOld);
+        ljono = new int[alkioidenLkm + kasvatuskoko];
+        kopioiTaulukko(taulukkoOld, ljono);
     }
 
     private void kopioiTaulukko(int[] vanha, int[] uusi) {
