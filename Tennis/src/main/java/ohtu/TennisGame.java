@@ -1,6 +1,10 @@
 package ohtu;
 
 public class TennisGame {
+
+    private static String[] SCORE_NAMES = {
+        "Love", "Fifteen", "Thirty", "Forty"
+    };
     
     private int m_score1 = 0;
     private int m_score2 = 0;
@@ -21,30 +25,9 @@ public class TennisGame {
 
     public String getScore() {
         String score = "";
-        int tempScore=0;
-        if (m_score1==m_score2)
-        {
-            switch (m_score1)
-            {
-                case 0:
-                        score = "Love-All";
-                    break;
-                case 1:
-                        score = "Fifteen-All";
-                    break;
-                case 2:
-                        score = "Thirty-All";
-                    break;
-                case 3:
-                        score = "Forty-All";
-                    break;
-                default:
-                        score = "Deuce";
-                    break;
-                
-            }
-        }
-        else if (m_score1>=4 || m_score2>=4)
+        if (m_score1==m_score2) {
+            return sameScore(m_score1);
+        } else if (m_score1>=4 || m_score2>=4)
         {
             int minusResult = m_score1-m_score2;
             if (minusResult==1) score ="Advantage player1";
@@ -54,6 +37,7 @@ public class TennisGame {
         }
         else
         {
+            int tempScore=0;
             for (int i=1; i<3; i++)
             {
                 if (i==1) tempScore = m_score1;
@@ -76,5 +60,11 @@ public class TennisGame {
             }
         }
         return score;
+    }
+
+    private String sameScore(int score) {
+        if (score < 0 || score >= SCORE_NAMES.length)
+            return "Deuce";
+        return SCORE_NAMES[score] + "-All";
     }
 }
