@@ -27,7 +27,7 @@ public class TennisGame {
         if (m_score1==m_score2)
             return sameScore(m_score1);
         else if (m_score1>=4 || m_score2>=4)
-            return advantageScore(m_score1, m_score2);
+            return twoPointDifferenceBattleScore(m_score1, m_score2);
         else
             return normalScore(m_score1, m_score2);
     }
@@ -38,16 +38,20 @@ public class TennisGame {
         return SCORE_NAMES[score] + "-All";
     }
 
-    private String advantageScore(int score1, int score2) {
-        int minusResult = score1 - score2;
-        if (minusResult==1)
-            return "Advantage " + player1Name;
-        else if (minusResult ==-1)
-            return "Advantage " + player2Name;
-        else if (minusResult>=2)
-            return "Win for " + player1Name;
+    private String twoPointDifferenceBattleScore(int score1, int score2) {
+        int diffScore = score1 - score2;
+        if (Math.abs(diffScore) == 1)
+            return advantage(diffScore > 0);
         else
-            return "Win for " + player2Name;
+            return winner(diffScore > 0);
+    }
+
+    private String advantage(boolean isPlayer1) {
+        return "Advantage " + (isPlayer1 ? player1Name : player2Name);
+    }
+
+    private String winner(boolean isPlayer1) {
+        return "Win for " + (isPlayer1 ? player1Name : player2Name);
     }
 
     private String normalScore(int score1, int score2) {
