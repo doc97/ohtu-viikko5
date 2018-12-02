@@ -17,7 +17,7 @@ public class TennisGame {
     }
 
     public void wonPoint(String playerName) {
-        if (playerName.equals("player1"))
+        if (playerName.equals(player1Name))
             m_score1 += 1;
         else
             m_score2 += 1;
@@ -41,13 +41,13 @@ public class TennisGame {
     private String advantageScore(int score1, int score2) {
         int minusResult = score1 - score2;
         if (minusResult==1)
-            return "Advantage player1";
+            return "Advantage " + player1Name;
         else if (minusResult ==-1)
-            return "Advantage player2";
+            return "Advantage " + player2Name;
         else if (minusResult>=2)
-            return "Win for player1";
+            return "Win for " + player1Name;
         else
-            return "Win for player2";
+            return "Win for " + player2Name;
     }
 
     private String normalScore(int score1, int score2) {
