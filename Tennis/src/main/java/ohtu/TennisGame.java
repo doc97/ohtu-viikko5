@@ -52,31 +52,6 @@ public class TennisGame {
     }
 
     private String normalScore(int score1, int score2) {
-        StringBuilder result = new StringBuilder();
-        int tempScore;
-        for (int i = 1; i < 3; i++) {
-            if (i == 1) {
-                tempScore = score1;
-            } else {
-                result.append("-");
-                tempScore = score2;
-            }
-
-            switch(tempScore) {
-                case 0:
-                    result.append("Love");
-                    break;
-                case 1:
-                    result.append("Fifteen");
-                    break;
-                case 2:
-                    result.append("Thirty");
-                    break;
-                case 3:
-                    result.append("Forty");
-                    break;
-            }
-        }
-        return result.toString();
+        return SCORE_NAMES[score1] + "-" + SCORE_NAMES[score2];
     }
 }
