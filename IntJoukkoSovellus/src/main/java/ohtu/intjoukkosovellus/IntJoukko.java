@@ -77,14 +77,14 @@ public class IntJoukko {
         } else if (alkioidenLkm == 1) {
             return "{" + ljono[0] + "}";
         } else {
-            String tuotos = "{";
+            StringBuilder tuotos = new StringBuilder("{");
             for (int i = 0; i < alkioidenLkm - 1; i++) {
-                tuotos += ljono[i];
-                tuotos += ", ";
+                tuotos.append(ljono[i]);
+                tuotos.append(", ");
             }
-            tuotos += ljono[alkioidenLkm - 1];
-            tuotos += "}";
-            return tuotos;
+            tuotos.append(ljono[alkioidenLkm - 1]);
+            tuotos.append("}");
+            return tuotos.toString();
         }
     }
 
