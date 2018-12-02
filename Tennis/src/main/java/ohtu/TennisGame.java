@@ -24,13 +24,12 @@ public class TennisGame {
     }
 
     public String getScore() {
-        if (m_score1==m_score2) {
+        if (m_score1==m_score2)
             return sameScore(m_score1);
-        } else if (m_score1>=4 || m_score2>=4) {
-            return tieScore(m_score1, m_score2);
-        } else {
+        else if (m_score1>=4 || m_score2>=4)
+            return advantageScore(m_score1, m_score2);
+        else
             return normalScore(m_score1, m_score2);
-        }
     }
 
     private String sameScore(int score) {
@@ -39,7 +38,7 @@ public class TennisGame {
         return SCORE_NAMES[score] + "-All";
     }
 
-    private String tieScore(int score1, int score2) {
+    private String advantageScore(int score1, int score2) {
         int minusResult = score1 - score2;
         if (minusResult==1)
             return "Advantage player1";
