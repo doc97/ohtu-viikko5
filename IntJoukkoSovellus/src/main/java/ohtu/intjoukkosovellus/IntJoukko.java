@@ -95,45 +95,43 @@ public class IntJoukko {
     }
 
     public static IntJoukko yhdiste(IntJoukko a, IntJoukko b) {
-        IntJoukko x = new IntJoukko();
-        int[] aTaulu = a.toIntArray();
-        int[] bTaulu = b.toIntArray();
-        for (int i = 0; i < aTaulu.length; i++) {
-            x.lisaa(aTaulu[i]);
-        }
-        for (int i = 0; i < bTaulu.length; i++) {
-            x.lisaa(bTaulu[i]);
-        }
-        return x;
+        return operattori(a, b, (aTaulu, bTaulu, tulos) -> {
+            for (int aArvo : aTaulu) tulos.lisaa(aArvo);
+            for (int bArvo : bTaulu) tulos.lisaa(bArvo);
+        });
     }
 
     public static IntJoukko leikkaus(IntJoukko a, IntJoukko b) {
-        IntJoukko y = new IntJoukko();
-        int[] aTaulu = a.toIntArray();
-        int[] bTaulu = b.toIntArray();
-        for (int i = 0; i < aTaulu.length; i++) {
-            for (int j = 0; j < bTaulu.length; j++) {
-                if (aTaulu[i] == bTaulu[j]) {
-                    y.lisaa(bTaulu[j]);
+        return operattori(a, b, (aTaulu, bTaulu, tulos) -> {
+            for (int aArvo : aTaulu) {
+                for (int bArvo : bTaulu) {
+                    if (aArvo == bArvo) {
+                        tulos.lisaa(aArvo);
+                        break;
+                    }
                 }
             }
-        }
-        return y;
-
+        });
     }
     
     public static IntJoukko erotus ( IntJoukko a, IntJoukko b) {
-        IntJoukko z = new IntJoukko();
+        return operattori(a, b, (aTaulu, bTaulu, tulos) -> {
+            for (int i : aTaulu)
+                tulos.lisaa(i);
+            for (int i = 0; i < bTaulu.length; i++)
+                tulos.poista(i);
+        });
+    }
+
+    private static IntJoukko operattori(IntJoukko a, IntJoukko b, IntJoukkoOperaatio operaatio) {
+        IntJoukko tulos = new IntJoukko();
         int[] aTaulu = a.toIntArray();
         int[] bTaulu = b.toIntArray();
-        for (int i = 0; i < aTaulu.length; i++) {
-            z.lisaa(aTaulu[i]);
-        }
-        for (int i = 0; i < bTaulu.length; i++) {
-            z.poista(i);
-        }
- 
-        return z;
+        operaatio.operator(aTaulu, bTaulu, tulos);
+        return tulos;
     }
-        
+
+    private interface IntJoukkoOperaatio {
+        void operator(int[] a, int[] b, IntJoukko tulos);
+    }
 }
